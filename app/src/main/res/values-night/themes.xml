@@ -2,6 +2,25 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowBackground">@color/dark_bg</item>
+        <item name="colorPrimary">@color/dark_button_op</item>
+    </style>
+
+    <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
+
+    <!-- Style cho nút số chung (Dark Mode) -->
+    <style name="Widget.App.Button.Circular" parent="Widget.Material3.Button">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="cornerRadius">42dp</item>
+        <item name="backgroundTint">@color/dark_button_num</item>
+        <item name="android:textColor">@color/dark_text_primary</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textSize">30sp</item>
     </style>
 </resources>

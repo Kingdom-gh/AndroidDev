@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="?android:attr/windowBackground"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -16,7 +16,6 @@
         android:orientation="vertical"
         android:padding="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,9 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="120 + 50"
-            android:textColor="#757575"
-            android:textSize="18sp" />
+            android:textColor="@color/light_text_secondary"
+            android:textSize="18sp"
+            tools:text="120 + 50" />
 
         <TextView
             android:id="@+id/tvResult"
@@ -35,10 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="end"
-            android:text="170"
-            android:textColor="#212121"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="48sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="170" />
     </LinearLayout>
 
     <TableLayout
@@ -53,186 +52,44 @@
         app:layout_constraintVertical_bias="1.0">
 
         <TableRow>
-
-            <Button
-                android:id="@+id/btnClear"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:backgroundTint="#eac9d0"
-                android:text="@string/clear"
-                android:textSize="32sp" />
-
-            <Button
-                android:id="@+id/btnDel"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/del" />
-
-            <Button
-                android:id="@+id/btnPercent"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/div100" />
-
-            <Button
-                android:id="@+id/btnDiv"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:backgroundTint="#c69338"
-                android:text="@string/div" />
+            <Button android:id="@+id/btnClear" style="@style/Widget.App.Button.Circular"
+                android:backgroundTint="@color/light_button_clear" android:text="@string/clear" />
+            <Button android:id="@+id/btnDel" style="@style/Widget.App.Button.Circular" android:text="@string/del" />
+            <Button android:id="@+id/btnPercent" style="@style/Widget.App.Button.Circular" android:text="@string/div100" />
+            <Button android:id="@+id/btnDiv" style="@style/Widget.App.Button.Circular"
+                android:backgroundTint="@color/light_button_op" android:text="@string/div" />
         </TableRow>
 
         <TableRow>
-
-            <Button
-                android:id="@+id/btn7"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/seven" />
-
-            <Button
-                android:id="@+id/btn8"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/eight" />
-
-            <Button
-                android:id="@+id/btn9"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/nine" />
-
-            <Button
-                android:id="@+id/btnMul"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:backgroundTint="#c69338"
-                android:text="@string/mul" />
+            <Button android:id="@+id/btn7" style="@style/Widget.App.Button.Circular" android:text="@string/seven" />
+            <Button android:id="@+id/btn8" style="@style/Widget.App.Button.Circular" android:text="@string/eight" />
+            <Button android:id="@+id/btn9" style="@style/Widget.App.Button.Circular" android:text="@string/nine" />
+            <Button android:id="@+id/btnMul" style="@style/Widget.App.Button.Circular"
+                android:backgroundTint="@color/light_button_op" android:text="@string/mul" />
         </TableRow>
 
         <TableRow>
-
-            <Button
-                android:id="@+id/btn4"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/four" />
-
-            <Button
-                android:id="@+id/btn5"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/five" />
-
-            <Button
-                android:id="@+id/btn6"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/six" />
-
-            <Button
-                android:id="@+id/btnMinus"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:backgroundTint="#c69338"
-                android:text="@string/minus" />
+            <Button android:id="@+id/btn4" style="@style/Widget.App.Button.Circular" android:text="@string/four" />
+            <Button android:id="@+id/btn5" style="@style/Widget.App.Button.Circular" android:text="@string/five" />
+            <Button android:id="@+id/btn6" style="@style/Widget.App.Button.Circular" android:text="@string/six" />
+            <Button android:id="@+id/btnMinus" style="@style/Widget.App.Button.Circular"
+                android:backgroundTint="@color/light_button_op" android:text="@string/minus" />
         </TableRow>
 
         <TableRow>
-
-            <Button
-                android:id="@+id/btn1"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/one" />
-
-            <Button
-                android:id="@+id/btn2"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/two" />
-
-            <Button
-                android:id="@+id/btn3"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/three" />
-
-            <Button
-                android:id="@+id/btnPlus"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/plus"
-                app:backgroundTint="#c69338" />
+            <Button android:id="@+id/btn1" style="@style/Widget.App.Button.Circular" android:text="@string/one" />
+            <Button android:id="@+id/btn2" style="@style/Widget.App.Button.Circular" android:text="@string/two" />
+            <Button android:id="@+id/btn3" style="@style/Widget.App.Button.Circular" android:text="@string/three" />
+            <Button android:id="@+id/btnPlus" style="@style/Widget.App.Button.Circular"
+                android:backgroundTint="@color/light_button_op" android:text="@string/plus" />
         </TableRow>
 
         <TableRow>
-
-            <Button
-                android:id="@+id/btn00"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/doubleOh" />
-
-            <Button
-                android:id="@+id/btn0"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/oh" />
-
-            <Button
-                android:id="@+id/btnDot"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/dot" />
-
-            <Button
-                android:id="@+id/btnEqual"
-                style="@style/Widget.App.Button.Circular"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:layout_weight="300"
-                android:text="@string/equal"
-                android:textColor="@android:color/white"
-                app:backgroundTint="#4CAF50" />
+            <Button android:id="@+id/btn00" style="@style/Widget.App.Button.Circular" android:text="@string/doubleOh" />
+            <Button android:id="@+id/btn0" style="@style/Widget.App.Button.Circular" android:text="@string/oh" />
+            <Button android:id="@+id/btnDot" style="@style/Widget.App.Button.Circular" android:text="@string/dot" />
+            <Button android:id="@+id/btnEqual" style="@style/Widget.App.Button.Circular"
+                android:backgroundTint="#4CAF50" android:text="@string/equal" android:textColor="@android:color/white" />
         </TableRow>
     </TableLayout>
 

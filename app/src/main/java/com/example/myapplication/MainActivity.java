@@ -16,10 +16,11 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvExpression, tvResult;
-    private String currentInput = "";
+    private String currentInput = "0";
     private double firstOperand = Double.NaN;
     private Operator currentOperator = Operator.NONE;
     private DecimalFormat decimalFormat = new DecimalFormat("#.##########");
+    private boolean isResultDisplayed = false;
 
     enum Operator {
         NONE(""), ADD("+"), SUBTRACT("-"), MULTIPLY("x"), DIVIDE("/");
@@ -51,72 +52,80 @@ public class MainActivity extends AppCompatActivity {
         tvExpression.setText("");
         tvResult.setText("0");
 
-        // Gán listener cho các nút số
         int[] numericButtons = {
                 R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4,
                 R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9,
                 R.id.btn00, R.id.btnDot
         };
 
-        View.OnClickListener numberListener = v -> {
-            Button b = (Button) v;
-            String text = b.getText().toString();
-
-            if (text.equals(".") && currentInput.contains(".")) return;
-            
-            currentInput += text;
-            tvResult.setText(currentInput);
-            updateExpression();
-        };
-
         for (int id : numericButtons) {
-            findViewById(id).setOnClickListener(numberListener);
+            findViewById(id).setOnClickListener(this::onNumberClick);
         }
 
-        // Gán listener cho các nút phép tính
         findViewById(R.id.btnPlus).setOnClickListener(v -> setOperator(Operator.ADD));
         findViewById(R.id.btnMinus).setOnClickListener(v -> setOperator(Operator.SUBTRACT));
         findViewById(R.id.btnMul).setOnClickListener(v -> setOperator(Operator.MULTIPLY));
         findViewById(R.id.btnDiv).setOnClickListener(v -> setOperator(Operator.DIVIDE));
-
-        // Nút đặc biệt
         findViewById(R.id.btnClear).setOnClickListener(v -> clear());
         findViewById(R.id.btnDel).setOnClickListener(v -> delete());
         findViewById(R.id.btnPercent).setOnClickListener(v -> percent());
         findViewById(R.id.btnEqual).setOnClickListener(v -> calculateResult());
     }
 
-    private void setOperator(Operator op) {
-        if (!currentInput.isEmpty()) {
-            if (!Double.isNaN(firstOperand) && currentOperator != Operator.NONE) {
-                // Tính toán trung gian nếu đã có số thứ nhất và dấu
-                calculateResult();
+    private void onNumberClick(View v) {
+        if (isResultDisplayed) {
+            clear();
+        }
+        isResultDisplayed = false;
+
+        String val = ((Button) v).getText().toString();
+
+        if (val.equals(".")) {
+            if (currentInput.equals("0") || currentInput.isEmpty()) {
+                currentInput = "0.";
+            } else if (!currentInput.contains(".")) {
+                currentInput += ".";
             }
-            firstOperand = Double.parseDouble(currentInput);
-            currentInput = "";
+        } else {
+            if (currentInput.equals("0")) {
+                if (!val.equals("0") && !val.equals("00")) {
+                    currentInput = val;
+                }
+            } else {
+                currentInput += val;
+            }
+        }
+
+        tvResult.setText(currentInput);
+        updateExpression();
+    }
+
+    private void setOperator(Operator op) {
+        if (!currentInput.equals("0")) {
+            if (!Double.isNaN(firstOperand) && currentOperator != Operator.NONE) {
+                calculateResult();
+            } else {
+                firstOperand = parse(currentInput);
+            }
+            currentInput = "0";
         } else if (Double.isNaN(firstOperand)) {
             firstOperand = 0;
         }
 
+        isResultDisplayed = false;
         currentOperator = op;
         updateExpression();
     }
 
     private void updateExpression() {
-        String expr = "";
-        if (!Double.isNaN(firstOperand)) {
-            expr = decimalFormat.format(firstOperand) + " " + currentOperator.symbol;
-        }
-        if (!currentInput.isEmpty()) {
-            expr += " " + currentInput;
-        }
-        tvExpression.setText(expr);
+        String expr = Double.isNaN(firstOperand) ? "" : decimalFormat.format(firstOperand) + " " + currentOperator.symbol;
+        tvExpression.setText(expr + (currentInput.equals("0") ? "" : " " + currentInput));
     }
 
     private void calculateResult() {
-        if (Double.isNaN(firstOperand) || currentInput.isEmpty() || currentOperator == Operator.NONE) return;
+        if (Double.isNaN(firstOperand) || currentOperator == Operator.NONE) return;
 
-        double secondOperand = Double.parseDouble(currentInput);
+        double secondOperand = parse(currentInput);
         double result = 0;
 
         switch (currentOperator) {
@@ -133,36 +142,50 @@ public class MainActivity extends AppCompatActivity {
         }
 
         tvResult.setText(decimalFormat.format(result));
-        tvExpression.setText(decimalFormat.format(firstOperand) + " " + currentOperator.symbol + " " + secondOperand + " =");
-        
-        // Chuẩn bị cho phép tính tiếp theo
+        tvExpression.setText(decimalFormat.format(firstOperand) + " " + currentOperator.symbol + " " + decimalFormat.format(secondOperand) + " =");
+
         firstOperand = result;
-        currentInput = "";
+        currentInput = "0";
         currentOperator = Operator.NONE;
+        isResultDisplayed = true;
     }
 
     private void clear() {
-        currentInput = "";
+        currentInput = "0";
         firstOperand = Double.NaN;
         currentOperator = Operator.NONE;
+        isResultDisplayed = false;
         tvExpression.setText("");
         tvResult.setText("0");
     }
 
     private void delete() {
-        if (!currentInput.isEmpty()) {
+        if (isResultDisplayed) {
+            clear();
+            return;
+        }
+        if (currentInput.length() > 1) {
             currentInput = currentInput.substring(0, currentInput.length() - 1);
-            tvResult.setText(currentInput.isEmpty() ? "0" : currentInput);
+        } else {
+            currentInput = "0";
+        }
+        tvResult.setText(currentInput);
+        updateExpression();
+    }
+
+    private void percent() {
+        if (isResultDisplayed) {
+            firstOperand /= 100;
+            tvResult.setText(decimalFormat.format(firstOperand));
+            tvExpression.setText(decimalFormat.format(firstOperand));
+        } else {
+            currentInput = decimalFormat.format(parse(currentInput) / 100);
+            tvResult.setText(currentInput);
             updateExpression();
         }
     }
 
-    private void percent() {
-        if (!currentInput.isEmpty()) {
-            double value = Double.parseDouble(currentInput) / 100;
-            currentInput = decimalFormat.format(value);
-            tvResult.setText(currentInput);
-            updateExpression();
-        }
+    private double parse(String s) {
+        try { return Double.parseDouble(s); } catch (Exception e) { return 0; }
     }
 }

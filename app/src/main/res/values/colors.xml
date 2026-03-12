@@ -2,4 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Light Theme Colors -->
+    <color name="light_bg">#F5F5F5</color>
+    <color name="light_button_num">#dfecf1</color>
+    <color name="light_button_op">#c69338</color>
+    <color name="light_button_clear">#eac9d0</color>
+    <color name="light_text_primary">#212121</color>
+    <color name="light_text_secondary">#757575</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="dark_bg">#121212</color>
+    <color name="dark_button_num">#333333</color>
+    <color name="dark_button_op">#FF9800</color>
+    <color name="dark_button_clear">#CF6679</color>
+    <color name="dark_text_primary">#FFFFFF</color>
+    <color name="dark_text_secondary">#B0B0B0</color>
 </resources>
